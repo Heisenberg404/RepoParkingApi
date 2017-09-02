@@ -23,6 +23,7 @@ namespace ParkingApi
         public int id { get; set; }
         public decimal valueMinute { get; set; }
         public int idVehicleType { get; set; }
+        public decimal valueMonth { get; set; }
     
         public virtual VehicleType VehicleType { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

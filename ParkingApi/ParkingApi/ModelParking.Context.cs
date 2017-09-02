@@ -25,14 +25,14 @@ namespace ParkingApi
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<Payment> Payment { get; set; }
+        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<Floor> Floor { get; set; }
         public virtual DbSet<ParkCells> ParkCells { get; set; }
-        public virtual DbSet<Payment> Payment { get; set; }
         public virtual DbSet<Price> Price { get; set; }
         public virtual DbSet<Record> Record { get; set; }
-        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<User> User { get; set; }
-        public virtual DbSet<UserMonthPayment> UserMonthPayment { get; set; }
         public virtual DbSet<VehicleType> VehicleType { get; set; }
+        public virtual DbSet<UserMonthPayment> UserMonthPayments { get; set; }
     }
 }

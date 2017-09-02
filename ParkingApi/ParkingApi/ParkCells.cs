@@ -18,18 +18,18 @@ namespace ParkingApi
         public ParkCells()
         {
             this.Record = new HashSet<Record>();
-            this.UserMonthPayment = new HashSet<UserMonthPayment>();
+            this.UserMonthPayments = new HashSet<UserMonthPayment>();
         }
     
         public int id { get; set; }
         public string numCell { get; set; }
-        public bool avaliable { get; set; }
+        public string state { get; set; }
         public int idFloor { get; set; }
     
         public virtual Floor Floor { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Record> Record { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<UserMonthPayment> UserMonthPayment { get; set; }
+        public virtual ICollection<UserMonthPayment> UserMonthPayments { get; set; }
     }
 }

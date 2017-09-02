@@ -17,16 +17,16 @@ namespace ParkingApi.Controllers
         private ParkingEntities db = new ParkingEntities();
 
         // GET: api/UserMonthPayments
-        public IQueryable<UserMonthPayment> GetUserMonthPayment()
+        public IQueryable<UserMonthPayment> GetUserMonthPayments()
         {
-            return db.UserMonthPayment;
+            return db.UserMonthPayments;
         }
 
         // GET: api/UserMonthPayments/5
         [ResponseType(typeof(UserMonthPayment))]
         public IHttpActionResult GetUserMonthPayment(int id)
         {
-            UserMonthPayment userMonthPayment = db.UserMonthPayment.Find(id);
+            UserMonthPayment userMonthPayment = db.UserMonthPayments.Find(id);
             if (userMonthPayment == null)
             {
                 return NotFound();
@@ -79,7 +79,7 @@ namespace ParkingApi.Controllers
                 return BadRequest(ModelState);
             }
 
-            db.UserMonthPayment.Add(userMonthPayment);
+            db.UserMonthPayments.Add(userMonthPayment);
             db.SaveChanges();
 
             return CreatedAtRoute("DefaultApi", new { id = userMonthPayment.id }, userMonthPayment);
@@ -89,13 +89,13 @@ namespace ParkingApi.Controllers
         [ResponseType(typeof(UserMonthPayment))]
         public IHttpActionResult DeleteUserMonthPayment(int id)
         {
-            UserMonthPayment userMonthPayment = db.UserMonthPayment.Find(id);
+            UserMonthPayment userMonthPayment = db.UserMonthPayments.Find(id);
             if (userMonthPayment == null)
             {
                 return NotFound();
             }
 
-            db.UserMonthPayment.Remove(userMonthPayment);
+            db.UserMonthPayments.Remove(userMonthPayment);
             db.SaveChanges();
 
             return Ok(userMonthPayment);
@@ -112,7 +112,7 @@ namespace ParkingApi.Controllers
 
         private bool UserMonthPaymentExists(int id)
         {
-            return db.UserMonthPayment.Count(e => e.id == id) > 0;
+            return db.UserMonthPayments.Count(e => e.id == id) > 0;
         }
     }
 }

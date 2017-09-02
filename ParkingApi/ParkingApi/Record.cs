@@ -17,7 +17,7 @@ namespace ParkingApi
         public int Id { get; set; }
         public string license { get; set; }
         public System.DateTime timeEntry { get; set; }
-        public System.DateTime timeOut { get; set; }
+        public Nullable<System.DateTime> timeOut { get; set; }
         public int idPrice { get; set; }
         public int idParkCell { get; set; }
     

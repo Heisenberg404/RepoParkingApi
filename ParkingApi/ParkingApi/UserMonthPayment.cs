@@ -17,18 +17,17 @@ namespace ParkingApi
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public UserMonthPayment()
         {
-            this.Payment = new HashSet<Payment>();
+            this.Payments = new HashSet<Payment>();
         }
     
         public int id { get; set; }
         public string numberIdentification { get; set; }
         public string name { get; set; }
         public bool state { get; set; }
-        public int idRecord { get; set; }
         public int idParkCells { get; set; }
     
-        public virtual ParkCells ParkCells { get; set; }
+        public virtual ParkCells ParkCell { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Payment> Payment { get; set; }
+        public virtual ICollection<Payment> Payments { get; set; }
     }
 }
