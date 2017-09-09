@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -9,6 +10,9 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using ParkingApi;
+using ParkingApi.Models;
+using AttributeRouting.Web.Mvc;
+using ParkingApi.Domain;
 
 namespace ParkingApi.Controllers
 {
@@ -22,11 +26,17 @@ namespace ParkingApi.Controllers
             return db.User;
         }
 
-        // GET: api/Users/5
-        [ResponseType(typeof(User))]
-        public IHttpActionResult GetUser(int id)
+        UsersModel usersModel = new UsersModel();
+        public String mensaje = " ";
+
+        [HttpPost]
+        [POST("api/Users/login")]
+        public IHttpActionResult checkLogin(UserRequest userReq)
         {
-            User user = db.User.Find(id);
+            //string username = System.Web.HttpContext.Current.Request.QueryString.Get("username");
+
+            User user = usersModel.GetByUsernameUser(userReq.username);
+
             if (user == null)
             {
                 return NotFound();
@@ -35,84 +45,53 @@ namespace ParkingApi.Controllers
             return Ok(user);
         }
 
+
         // PUT: api/Users/5
-        [ResponseType(typeof(void))]
+        [ResponseType(typeof(String))]
         public IHttpActionResult PutUser(int id, User user)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-
             if (id != user.id)
             {
                 return BadRequest();
             }
-
-            db.Entry(user).State = EntityState.Modified;
-
-            try
+            mensaje = usersModel.UpdateUser(id, user);
+            if (mensaje == "OK")
             {
-                db.SaveChanges();
+                //return StatusCode(HttpStatusCode.OK);
+                /*return new System.Web.Http.Results.ResponseMessageResult(
+                    Request.CreateResponse(
+                        (HttpStatusCode)205,
+                        new HttpError("updated OK")
+                    )
+                );*/
+                return Ok("Update Ok");
+
+
             }
-            catch (DbUpdateConcurrencyException)
+            else
             {
-                if (!UserExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                return NotFound();
             }
 
-            return StatusCode(HttpStatusCode.NoContent);
+
+
         }
 
-        // POST: api/Users
+        // GET: api/Users/5
         [ResponseType(typeof(User))]
-        public IHttpActionResult PostUser(User user)
+        public IHttpActionResult GetUser(int id)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            db.User.Add(user);
-            db.SaveChanges();
-
-            return CreatedAtRoute("DefaultApi", new { id = user.id }, user);
-        }
-
-        // DELETE: api/Users/5
-        [ResponseType(typeof(User))]
-        public IHttpActionResult DeleteUser(int id)
-        {
-            User user = db.User.Find(id);
+            User user = usersModel.GetByIdUser(id);
             if (user == null)
             {
                 return NotFound();
             }
 
-            db.User.Remove(user);
-            db.SaveChanges();
-
             return Ok(user);
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
-
-        private bool UserExists(int id)
-        {
-            return db.User.Count(e => e.id == id) > 0;
         }
     }
 }
