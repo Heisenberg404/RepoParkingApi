@@ -19,33 +19,39 @@ namespace ParkingApi.Controllers
     public class UsersController : ApiController
     {
         private ParkingEntities db = new ParkingEntities();
-
-        // GET: api/Users
-        public IQueryable<User> GetUser()
-        {
-            return db.User;
-        }
-
         UsersModel usersModel = new UsersModel();
         public String mensaje = " ";
 
-        [HttpPost]
-        [POST("api/Users/login")]
-        public IHttpActionResult checkLogin(UserRequest userReq)
+        //Servicio para obtener todos los usuarios registrados.
+        // GET: api/Users
+        public IQueryable<User> GetUser()
         {
-            //string username = System.Web.HttpContext.Current.Request.QueryString.Get("username");
-
-            User user = usersModel.GetByUsernameUser(userReq.username);
-
-            if (user == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(user);
+            return usersModel.SelectAll();
         }
 
+        //Servicio para agregar un registro a la tabla user
+        // POST: api/Users
+        
+        [ResponseType(typeof(String))]
+        public IHttpActionResult PostUser(UserRequest userRequest)
+        {
+            User user = new User();
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
 
+            if (userRequest.operacion) {
+                user = usersModel.InsertUser(userRequest);
+              }
+            else
+            {
+                user= usersModel.GetByUsernameAndPassUser(userRequest);
+            }
+            return Ok(user);
+            //return CreatedAtRoute("DefaultApi", new { id = user.id }, user);
+        }
+        
         // PUT: api/Users/5
         [ResponseType(typeof(String))]
         public IHttpActionResult PutUser(int id, User user)
@@ -92,6 +98,24 @@ namespace ParkingApi.Controllers
             }
 
             return Ok(user);
+        }
+
+        // DELETE: api/Users/5
+        [ResponseType(typeof(String))]
+        public IHttpActionResult DeleteUser(int id)
+        {
+            User user = usersModel.GetByIdUser(id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            mensaje = usersModel.RemoveUser(user);
+            if (mensaje == "OK")
+            {
+
+                return Ok("Delete ok");
+            }
+            return NotFound();
         }
     }
 }

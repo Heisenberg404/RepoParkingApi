@@ -9,5 +9,6 @@ namespace ParkingApi.Domain
     {
         public string username { get; set; }
         public string pass { get; set; }
+        public Boolean operacion { get; set; } 
     }
 }

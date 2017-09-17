@@ -11,6 +11,8 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using ParkingApi;
+using ParkingApi.Domain;
+using System.Data.Entity.Validation;
 
 namespace ParkingApi.Models
 {
@@ -18,6 +20,37 @@ namespace ParkingApi.Models
     {
         private ParkingEntities db = new ParkingEntities();
         public String mensaje= "OK";
+        
+        //Funcion para obtener todos los usuarios registrados.
+        public IQueryable<User> SelectAll()
+        {
+            return db.User;
+        }
+
+        public User InsertUser(UserRequest userRequest)
+        {
+            User userReturn= new User();
+            try
+            {
+                userReturn = this.GetByUsernameUser(userRequest.username);
+                if (userReturn == null)
+                {
+                    User user = new User();
+                    user.username = userRequest.username;
+                    user.pass = userRequest.pass;
+                    db.User.Add(user);
+                    db.SaveChanges();
+                    mensaje = "OK";
+                    userReturn = this.GetByUsernameUser(user.username);
+                 }
+            }
+            catch (DbEntityValidationException e)
+            {
+                mensaje = "Error al crear un usuario"+ e;
+            }
+            return userReturn;
+
+        }
 
         public String UpdateUser(int id, User user)
         {
@@ -30,7 +63,7 @@ namespace ParkingApi.Models
             {
                 if (!UserExists(id))
                 {   
-                    mensaje =  "NO EXISTE EN LA TABLA";
+                    mensaje =  "NOT_FOUND";
                 }
                 
             }
@@ -46,8 +79,30 @@ namespace ParkingApi.Models
 
         public User GetByUsernameUser(String username)
         {
-            User myUser = db.User.Single(user => user.username == username);
+            User myUser =db.User.SingleOrDefault(user => user.username == username);
+           
+
             return myUser;
+        }
+
+        public User GetByUsernameAndPassUser(UserRequest userRequest)
+        {
+            IQueryable<User> u = db.User.Where(User => User.username == userRequest.username);
+            User user = u.SingleOrDefault(User => User.pass == userRequest.pass);
+            return user;
+        }
+        public String RemoveUser(User user)
+        {
+            try
+            {
+                db.User.Remove(user);
+                db.SaveChanges();
+            }
+            catch (DbEntityValidationException e)
+            {
+                mensaje = "Error al eliminar un usuario" + e;
+            }
+            return mensaje;
         }
 
         private bool UserExists(int id)

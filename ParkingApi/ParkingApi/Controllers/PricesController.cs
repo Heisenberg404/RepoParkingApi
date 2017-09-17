@@ -9,24 +9,56 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using ParkingApi;
+using ParkingApi.Models;
+using ParkingApi.Domain;
+using AttributeRouting.Web.Mvc;
 
 namespace ParkingApi.Controllers
 {
     public class PricesController : ApiController
     {
         private ParkingEntities db = new ParkingEntities();
+        PricesModel priceModel = new PricesModel();
+        public String mensaje = " ";
 
+        //Servicio para obtener todos los precios registrados.
         // GET: api/Prices
         public IQueryable<Price> GetPrice()
         {
-            return db.Price;
+            return priceModel.SelectAll();
         }
 
-        // GET: api/Prices/5
+        //Servicio para insertar un registro de precio
+        // POST: api/Prices
+        [ResponseType(typeof(String))]
+        public IHttpActionResult PostPrice(PriceRequest priceRequest)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            mensaje = priceModel.InsertPrice(priceRequest);
+
+            if (mensaje == "OK")
+            {
+                return Ok("Insert Ok");
+            }
+            else
+            {
+
+                return Ok(mensaje);
+            }
+
+        }
+
+        //Servicio para obtener precio segun el tipo de vehiculo
+        //GET api/Prices/2
         [ResponseType(typeof(Price))]
         public IHttpActionResult GetPrice(int id)
         {
-            Price price = db.Price.Find(id);
+            Price price = priceModel.GetPriceByVehicleType(id);
+
             if (price == null)
             {
                 return NotFound();
@@ -35,70 +67,57 @@ namespace ParkingApi.Controllers
             return Ok(price);
         }
 
+        //Servicio para modificar un precio
         // PUT: api/Prices/5
-        [ResponseType(typeof(void))]
-        public IHttpActionResult PutPrice(int id, Price price)
+        [ResponseType(typeof(String))]
+        public IHttpActionResult PutUser(int id, Price price)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-
             if (id != price.id)
             {
                 return BadRequest();
             }
-
-            db.Entry(price).State = EntityState.Modified;
-
-            try
+            mensaje = priceModel.UpdatePrice(id, price);
+            if (mensaje == "OK")
             {
-                db.SaveChanges();
+                //return StatusCode(HttpStatusCode.OK);
+                /*return new System.Web.Http.Results.ResponseMessageResult(
+                    Request.CreateResponse(
+                        (HttpStatusCode)205,
+                        new HttpError("updated OK")
+                    )
+                );*/
+                return Ok("Update Ok");
+
+
             }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!PriceExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return StatusCode(HttpStatusCode.NoContent);
-        }
-
-        // POST: api/Prices
-        [ResponseType(typeof(Price))]
-        public IHttpActionResult PostPrice(Price price)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            db.Price.Add(price);
-            db.SaveChanges();
-
-            return CreatedAtRoute("DefaultApi", new { id = price.id }, price);
-        }
-
-        // DELETE: api/Prices/5
-        [ResponseType(typeof(Price))]
-        public IHttpActionResult DeletePrice(int id)
-        {
-            Price price = db.Price.Find(id);
-            if (price == null)
+            else
             {
                 return NotFound();
             }
 
-            db.Price.Remove(price);
-            db.SaveChanges();
+        }
 
-            return Ok(price);
+        //Servicio para eliminar un registro especifico
+        // DELETE: api/Prices/5
+        [ResponseType(typeof(String))]
+        public IHttpActionResult DeleteUser(int id)
+        {
+            Price price = priceModel.GetByIdPrice(id);
+            if (price == null)
+            {
+                return NotFound();
+            }
+            mensaje = priceModel.RemovePrice(price);
+            if (mensaje == "OK")
+            {
+
+                return Ok(price);
+            }
+            return NotFound();
         }
 
         protected override void Dispose(bool disposing)
