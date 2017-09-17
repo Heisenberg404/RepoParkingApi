@@ -23,6 +23,7 @@ namespace ParkingApi.Controllers
         }
 
         // GET: api/ParkCells/5
+        //hola ale
         [ResponseType(typeof(ParkCells))]
         public IHttpActionResult GetParkCells(int id)
         {
