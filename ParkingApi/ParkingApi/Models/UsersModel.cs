@@ -27,12 +27,13 @@ namespace ParkingApi.Models
             return db.User;
         }
 
-        public String InsertUser(UserRequest userRequest)
+        public User InsertUser(UserRequest userRequest)
         {
+            User userReturn= new User();
             try
             {
-                mensaje = this.GetByUsernameUser(userRequest.username);
-                if (mensaje == "NOT_FOUND")
+                userReturn = this.GetByUsernameUser(userRequest.username);
+                if (userReturn == null)
                 {
                     User user = new User();
                     user.username = userRequest.username;
@@ -40,19 +41,15 @@ namespace ParkingApi.Models
                     db.User.Add(user);
                     db.SaveChanges();
                     mensaje = "OK";
-
-                }
-                else
-                {
-                    mensaje = "USER_EXIST";
-
-                }
+                    userReturn = this.GetByUsernameUser(user.username);
+                 }
             }
             catch (DbEntityValidationException e)
             {
                 mensaje = "Error al crear un usuario"+ e;
             }
-            return mensaje;
+            return userReturn;
+
         }
 
         public String UpdateUser(int id, User user)
@@ -80,27 +77,19 @@ namespace ParkingApi.Models
             return user;
         }
 
-        public String GetByUsernameUser(String username)
+        public User GetByUsernameUser(String username)
         {
             User myUser =db.User.SingleOrDefault(user => user.username == username);
-            if (myUser == null)
-            {
-                mensaje = "NOT_FOUND";
-            }
+           
 
-            return mensaje;
+            return myUser;
         }
 
-        public String GetByUsernameAndPassUser(UserRequest userRequest)
+        public User GetByUsernameAndPassUser(UserRequest userRequest)
         {
             IQueryable<User> u = db.User.Where(User => User.username == userRequest.username);
             User user = u.SingleOrDefault(User => User.pass == userRequest.pass);
-            if (user == null)
-            {
-                mensaje = "NOT_FOUND";
-            }
-
-            return mensaje;
+            return user;
         }
         public String RemoveUser(User user)
         {

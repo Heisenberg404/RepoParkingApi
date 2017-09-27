@@ -35,36 +35,22 @@ namespace ParkingApi.Controllers
         [ResponseType(typeof(String))]
         public IHttpActionResult PostUser(UserRequest userRequest)
         {
+            User user = new User();
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
             if (userRequest.operacion) {
-                mensaje = usersModel.InsertUser(userRequest);
-
-                if (mensaje == "OK")
-                {
-                    mensaje = "INSERT OK";
-                }
-             }
+                user = usersModel.InsertUser(userRequest);
+              }
             else
             {
-                mensaje= usersModel.GetByUsernameAndPassUser(userRequest);
-
-                if (mensaje == "NOT_FOUND")
-                {
-                    return NotFound();
-                }
-
+                user= usersModel.GetByUsernameAndPassUser(userRequest);
             }
-
-            return Ok(mensaje);
+            return Ok(user);
             //return CreatedAtRoute("DefaultApi", new { id = user.id }, user);
-
         }
-        
-
         
         // PUT: api/Users/5
         [ResponseType(typeof(String))]

@@ -46,18 +46,18 @@ namespace ParkingApi.Controllers
             }
             else
             {
-                
+
                 return Ok(mensaje);
             }
-            
+
         }
 
         //Servicio para obtener precio segun el tipo de vehiculo
         //GET api/Prices/2
         [ResponseType(typeof(Price))]
-        public IHttpActionResult GetPrice(int IdVehicleType)
+        public IHttpActionResult GetPrice(int id)
         {
-            Price price = priceModel.GetPriceByVehicleType(IdVehicleType);
+            Price price = priceModel.GetPriceByVehicleType(id);
 
             if (price == null)
             {
