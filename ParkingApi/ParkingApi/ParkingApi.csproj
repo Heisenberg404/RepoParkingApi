@@ -217,7 +217,9 @@
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Controllers\VehicleTypesController.cs" />
+    <Compile Include="Domain\ParkCellResponse.cs" />
     <Compile Include="Domain\PriceRequest.cs" />
+    <Compile Include="Domain\RecordRequest.cs" />
     <Compile Include="Domain\UserRequest.cs" />
     <Compile Include="Floor.cs">
       <DependentUpon>ModelParking.tt</DependentUpon>
@@ -240,7 +242,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ModelParking.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\ParkCellsModel.cs" />
     <Compile Include="Models\PricesModel.cs" />
+    <Compile Include="Models\RecordsModel.cs" />
     <Compile Include="Models\UsersModel.cs" />
     <Compile Include="Models\VehiclesTypesModel.cs" />
     <Compile Include="ParkCells.cs">

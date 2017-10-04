@@ -9,17 +9,37 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using ParkingApi;
+using ParkingApi.Models;
+using ParkingApi.Domain;
 
 namespace ParkingApi.Controllers
 {
     public class ParkCellsController : ApiController
     {
         private ParkingEntities db = new ParkingEntities();
-
+        ParkCellsModel parkCellsModel = new ParkCellsModel();
+         
         // GET: api/ParkCells
-        public IQueryable<ParkCells> GetParkCells()
+        public IHttpActionResult GetParkCells()
         {
-            return db.ParkCells;
+            List<ParkCellResponse> lstparkCell = new List<ParkCellResponse>();
+            
+            IQueryable<ParkCells> g = parkCellsModel.SelectAll();
+            List<ParkCells> pa = g.ToList();
+            pa.ForEach(x => {ParkCellResponse obj = new ParkCellResponse();
+                                obj.id = x.id;
+                                obj.numCell = x.numCell;
+                                obj.state = x.state;
+                                obj.license = x.license;
+                lstparkCell.Add(obj);
+                            });
+
+
+
+
+
+            return Json(lstparkCell);
+            
         }
 
         // GET: api/ParkCells/5

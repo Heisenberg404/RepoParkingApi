@@ -9,19 +9,31 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using ParkingApi;
+using ParkingApi.Models;
+using AttributeRouting.Web.Mvc;
+using ParkingApi.Domain;
 
 namespace ParkingApi.Controllers
 {
     public class RecordsController : ApiController
     {
         private ParkingEntities db = new ParkingEntities();
+        RecordsModel recordModel = new RecordsModel();
 
         // GET: api/Records
         public IQueryable<Record> GetRecord()
         {
-            return db.Record;
+            return recordModel.SelectAll();
         }
 
+       /* [HttpGet]
+        [GET("api/Records/Cell")]
+        [ResponseType(typeof(RecordRequest))]
+        public IHttpActionResult getCellsActive()
+        {
+            recordModel.SelectAll();
+            return null;
+        }*/
         // GET: api/Records/5
         [ResponseType(typeof(Record))]
         public IHttpActionResult GetRecord(int id)

@@ -20,6 +20,7 @@
           <Property Name="numCell" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="state" Type="char" MaxLength="10" Nullable="false" />
           <Property Name="idFloor" Type="int" Nullable="false" />
+          <Property Name="license" Type="varchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="Payment">
           <Key>
@@ -272,6 +273,7 @@
           <NavigationProperty Name="Floor" Relationship="ParkingModel.FK_ParkCells_Floor" FromRole="ParkCells" ToRole="Floor" />
           <NavigationProperty Name="Record" Relationship="ParkingModel.FK_Record_ParkCells" FromRole="ParkCells" ToRole="Record" />
           <NavigationProperty Name="UserMonthPayments" Relationship="ParkingModel.FK_Usermonthpayment_ParkCells" FromRole="ParkCells" ToRole="UserMonthPayment" />
+          <Property Name="license" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Price">
           <Key>
@@ -436,6 +438,7 @@
           <EntitySetMapping Name="ParkCells">
             <EntityTypeMapping TypeName="ParkingModel.ParkCells">
               <MappingFragment StoreEntitySet="ParkCells">
+                <ScalarProperty Name="license" ColumnName="license" />
                 <ScalarProperty Name="idFloor" ColumnName="idFloor" />
                 <ScalarProperty Name="state" ColumnName="state" />
                 <ScalarProperty Name="numCell" ColumnName="numCell" />
