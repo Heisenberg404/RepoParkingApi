@@ -219,8 +219,10 @@
     <Compile Include="Controllers\VehicleTypesController.cs" />
     <Compile Include="Domain\ParkCellResponse.cs" />
     <Compile Include="Domain\PriceRequest.cs" />
+    <Compile Include="Domain\PriceResponse.cs" />
     <Compile Include="Domain\RecordRequest.cs" />
     <Compile Include="Domain\UserRequest.cs" />
+    <Compile Include="Domain\VehicleTypeResponse.cs" />
     <Compile Include="Floor.cs">
       <DependentUpon>ModelParking.tt</DependentUpon>
     </Compile>

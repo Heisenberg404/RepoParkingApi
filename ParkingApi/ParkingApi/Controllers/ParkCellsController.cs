@@ -22,23 +22,8 @@ namespace ParkingApi.Controllers
         // GET: api/ParkCells
         public IHttpActionResult GetParkCells()
         {
-            List<ParkCellResponse> lstparkCell = new List<ParkCellResponse>();
             
-            IQueryable<ParkCells> g = parkCellsModel.SelectAll();
-            List<ParkCells> pa = g.ToList();
-            pa.ForEach(x => {ParkCellResponse obj = new ParkCellResponse();
-                                obj.id = x.id;
-                                obj.numCell = x.numCell;
-                                obj.state = x.state;
-                                obj.license = x.license;
-                lstparkCell.Add(obj);
-                            });
-
-
-
-
-
-            return Json(lstparkCell);
+            return Json(parkCellsModel.SelectAll());
             
         }
 

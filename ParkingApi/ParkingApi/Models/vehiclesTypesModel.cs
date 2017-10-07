@@ -11,6 +11,7 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using ParkingApi;
+using ParkingApi.Domain;
 
 namespace ParkingApi.Models
 {
@@ -20,9 +21,22 @@ namespace ParkingApi.Models
         public String mensaje = "OK";
 
         //PROBAR
-        public IQueryable<VehicleType> SelectAll()
+        public List<VehicleTypeResponse> SelectAll()
         {
-            return db.VehicleType;
+            List<VehicleTypeResponse> lstTypeVehicle = new List<VehicleTypeResponse>();
+
+            IQueryable<VehicleType> g = db.VehicleType;
+            List<VehicleType> pa = g.ToList();
+            pa.ForEach(x => {
+                VehicleTypeResponse obj = new VehicleTypeResponse();
+                obj.id = x.id;
+                obj.description = x.description;
+                lstTypeVehicle.Add(obj);
+            });
+
+
+
+            return lstTypeVehicle;
         }
 
         public VehicleType GetByIdVehicleType(int id)

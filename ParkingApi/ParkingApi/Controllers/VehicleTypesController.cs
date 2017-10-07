@@ -19,9 +19,9 @@ namespace ParkingApi.Controllers
         VehicleTypesModel vehicleTypeModelo = new VehicleTypesModel();
 
         // GET: api/VehicleTypes
-        public IQueryable<VehicleType> GetVehicleType()
+        public IHttpActionResult GetVehicleType()
         {
-            return vehicleTypeModelo.SelectAll();
+            return Json(vehicleTypeModelo.SelectAll());
         }
 
         // GET: api/VehicleTypes/5

@@ -22,9 +22,26 @@ namespace ParkingApi.Models
         public String mensaje = "OK";
 
         //Funcion para obtener todos los usuarios registrados.
-        public IQueryable<ParkCells> SelectAll()
+        public List<ParkCellResponse> SelectAll()
         {
-            return db.ParkCells;
+            List<ParkCellResponse> lstparkCell = new List<ParkCellResponse>();
+
+            IQueryable<ParkCells> g = db.ParkCells;
+            List<ParkCells> pa = g.ToList();
+            pa.ForEach(x => {
+                ParkCellResponse obj = new ParkCellResponse();
+                obj.id = x.id;
+                obj.numCell = x.numCell;
+                obj.state = x.state;
+                obj.license = x.license;
+                lstparkCell.Add(obj);
+            });
+
+
+            return lstparkCell;
+
+
+
         }
 
        
