@@ -30,6 +30,7 @@ namespace ParkingApi.Controllers
         {
 
             VehicleType vehicleType = vehicleTypeModelo.GetByIdVehicleType(id);
+            
             if (vehicleType == null)
             {
                 return NotFound();
