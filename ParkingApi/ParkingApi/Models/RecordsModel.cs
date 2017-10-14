@@ -22,19 +22,26 @@ namespace ParkingApi.Models
         public String mensaje = "OK";
 
         //Funcion para obtener todos los usuarios registrados.
-        public IQueryable<Record> SelectAll()
+        public List<Report> SelectAll()
         {
-            return db.Record;
-        }
+            List<Report> returnReport = new List<Report>();
 
-        /*public RecordRequest getCellsActive() {
-
-            var result = from r in db.Record
-                         select new RecordRequest()
-                         {
-                             license = r.license,
-                             numCell = r.idParkCell.
-                             //Where(x => x.status == 1).Select(x => x.numCell)
+            IQueryable<Reporte_Result> reporte = db.Reporte();
+            var pa = reporte.ToList();
+            pa.ForEach(x =>
+            {
+                Report obj = new Report();
+                obj.id = (int)x.ID;
+                obj.license = x.LINCESE;
+                obj.vehicleType = x.VEHICLE_TIPE;
+                obj.timeEntry = (System.DateTime)x.TIMEENTRY;
+                obj.timeOut = (System.DateTime)x.TIMEOUT;
+                obj.minuteInParking = (int)x.MINUTES_IN_PARKING;
+                obj.minutePrice = (int)x.MINUTE_PRICE;
+                obj.totalPrice = (int)x.TOTAL_PRICE;
+                obj.cell = x.CELL;
+                returnReport.Add(obj);
+            });
 
                          };
             return null
@@ -242,9 +249,5 @@ namespace ParkingApi.Models
             return mensaje;
         }
 
-        private bool UserExists(int id)
-        {
-            return db.User.Count(e => e.id == id) > 0;
-        }
     }
 }

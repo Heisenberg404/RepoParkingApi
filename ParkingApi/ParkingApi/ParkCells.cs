@@ -26,7 +26,7 @@ namespace ParkingApi
         public string state { get; set; }
         public int idFloor { get; set; }
         public string license { get; set; }
-
+    
         public virtual Floor Floor { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Record> Record { get; set; }

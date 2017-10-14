@@ -32,7 +32,7 @@ namespace ParkingApi.Models
         {
             try
             {
-                Price priceResponse = GetPriceByVehicleType(priceRequest.idVehicleType);
+                PriceResponse priceResponse = GetPriceByVehicleType(priceRequest.idVehicleType);
                 if (priceResponse == null)
                 {
                     Price price = new Price();
@@ -59,10 +59,22 @@ namespace ParkingApi.Models
         }
 
         //funcion para obtener el precio segun el tipo de vehiculo
-        public Price GetPriceByVehicleType(int IdVehicleType)
+        public PriceResponse GetPriceByVehicleType(int IdVehicleType)
         {
             Price myPrice = db.Price.SingleOrDefault(Price => Price.idVehicleType == IdVehicleType);
-            return myPrice;
+            PriceResponse priceResponse = new PriceResponse();
+
+            if (myPrice != null) { 
+            priceResponse.id = myPrice.id;
+            priceResponse.idVehicleType = myPrice.idVehicleType;
+            priceResponse.valueMinute = myPrice.valueMinute;
+            priceResponse.valueMonth = myPrice.valueMonth;
+
+            return priceResponse;
+        }
+            return null;
+
+
         }
 
         //Funcion para modificar un precio

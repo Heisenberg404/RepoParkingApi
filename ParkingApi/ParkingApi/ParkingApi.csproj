@@ -220,9 +220,12 @@
     <Compile Include="Domain\Invoice.cs" />
     <Compile Include="Domain\ParkCellResponse.cs" />
     <Compile Include="Domain\PriceRequest.cs" />
+    <Compile Include="Domain\PriceResponse.cs" />
     <Compile Include="Domain\RecordRequest.cs" />
+    <Compile Include="Domain\Report.cs" />
     <Compile Include="Domain\RecordResponse.cs" />
     <Compile Include="Domain\UserRequest.cs" />
+    <Compile Include="Domain\VehicleTypeResponse.cs" />
     <Compile Include="Floor.cs">
       <DependentUpon>ModelParking.tt</DependentUpon>
     </Compile>
@@ -260,6 +263,15 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Record.cs">
+      <DependentUpon>ModelParking.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Reporte_Result.cs">
+      <DependentUpon>ModelParking.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_helpdiagramdefinition_Result.cs">
+      <DependentUpon>ModelParking.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_helpdiagrams_Result.cs">
       <DependentUpon>ModelParking.tt</DependentUpon>
     </Compile>
     <Compile Include="sysdiagrams.cs">
