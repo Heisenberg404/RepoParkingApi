@@ -9,12 +9,15 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using ParkingApi;
+using ParkingApi.Domain;
+using ParkingApi.Models;
 
 namespace ParkingApi.Controllers
 {
     public class UserMonthPaymentsController : ApiController
     {
         private ParkingEntities db = new ParkingEntities();
+        UserMonthPaymentsModel userMonthPaymentsModel = new UserMonthPaymentsModel();
 
         // GET: api/UserMonthPayments
         public IQueryable<UserMonthPayment> GetUserMonthPayments()
@@ -23,16 +26,11 @@ namespace ParkingApi.Controllers
         }
 
         // GET: api/UserMonthPayments/5
-        [ResponseType(typeof(UserMonthPayment))]
+        [ResponseType(typeof(UserMonthPaymentsResponse))]
         public IHttpActionResult GetUserMonthPayment(int id)
         {
-            UserMonthPayment userMonthPayment = db.UserMonthPayments.Find(id);
-            if (userMonthPayment == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(userMonthPayment);
+            UserMonthPaymentsResponse userMonthPaymentsResponse = userMonthPaymentsModel.GetById(id);
+            return Json(userMonthPaymentsResponse);
         }
 
         // PUT: api/UserMonthPayments/5

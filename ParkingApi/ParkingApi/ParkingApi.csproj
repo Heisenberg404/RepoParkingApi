@@ -222,6 +222,7 @@
     <Compile Include="Domain\PriceResponse.cs" />
     <Compile Include="Domain\RecordRequest.cs" />
     <Compile Include="Domain\Report.cs" />
+    <Compile Include="Domain\UserMonthPaymentsResponse.cs" />
     <Compile Include="Domain\UserRequest.cs" />
     <Compile Include="Domain\VehicleTypeResponse.cs" />
     <Compile Include="Floor.cs">
@@ -246,8 +247,10 @@
       <DependentUpon>ModelParking.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\ParkCellsModel.cs" />
+    <Compile Include="Models\PaymentsModel.cs" />
     <Compile Include="Models\PricesModel.cs" />
     <Compile Include="Models\RecordsModel.cs" />
+    <Compile Include="Models\UserMonthPaymentsModel.cs" />
     <Compile Include="Models\UsersModel.cs" />
     <Compile Include="Models\VehiclesTypesModel.cs" />
     <Compile Include="ParkCells.cs">
