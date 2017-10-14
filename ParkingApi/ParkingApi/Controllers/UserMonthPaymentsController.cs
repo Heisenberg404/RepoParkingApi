@@ -18,7 +18,7 @@ namespace ParkingApi.Controllers
     {
         private ParkingEntities db = new ParkingEntities();
         UserMonthPaymentsModel userMonthPaymentsModel = new UserMonthPaymentsModel();
-
+        //prueba
         // GET: api/UserMonthPayments
         public IQueryable<UserMonthPayment> GetUserMonthPayments()
         {
