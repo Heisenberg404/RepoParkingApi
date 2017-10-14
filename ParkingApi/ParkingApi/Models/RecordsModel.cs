@@ -42,10 +42,8 @@ namespace ParkingApi.Models
                 obj.cell = x.CELL;
                 returnReport.Add(obj);
             });
-
-                         };
-            return null
-        }*/
+            return returnReport;
+    }
 
 
         public Record InsertRecord (RecordRequest rq)
@@ -170,84 +168,7 @@ namespace ParkingApi.Models
 
             return id;
         }
-
-        public User InsertUser(UserRequest userRequest)
-        {
-            User userReturn = new User();
-            try
-            {
-                userReturn = this.GetByUsernameUser(userRequest.username);
-                if (userReturn == null)
-                {
-                    User user = new User();
-                    user.username = userRequest.username;
-                    user.pass = userRequest.pass;
-                    db.User.Add(user);
-                    db.SaveChanges();
-                    mensaje = "OK";
-                    userReturn = this.GetByUsernameUser(user.username);
-                }
-            }
-            catch (DbEntityValidationException e)
-            {
-                mensaje = "Error al crear un usuario" + e;
-            }
-            return userReturn;
-
-        }
-
-        public String UpdateUser(int id, User user)
-        {
-            try
-            {
-                db.Entry(user).State = EntityState.Modified;
-                db.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!UserExists(id))
-                {
-                    mensaje = "NOT_FOUND";
-                }
-
-            }
-
-            return mensaje;
-        }
-
-        public User GetByIdUser(int id)
-        {
-            User user = db.User.Find(id);
-            return user;
-        }
-
-        public User GetByUsernameUser(String username)
-        {
-            User myUser = db.User.SingleOrDefault(user => user.username == username);
-
-
-            return myUser;
-        }
-
-        public User GetByUsernameAndPassUser(UserRequest userRequest)
-        {
-            IQueryable<User> u = db.User.Where(User => User.username == userRequest.username);
-            User user = u.SingleOrDefault(User => User.pass == userRequest.pass);
-            return user;
-        }
-        public String RemoveUser(User user)
-        {
-            try
-            {
-                db.User.Remove(user);
-                db.SaveChanges();
-            }
-            catch (DbEntityValidationException e)
-            {
-                mensaje = "Error al eliminar un usuario" + e;
-            }
-            return mensaje;
-        }
+        
 
     }
 }
