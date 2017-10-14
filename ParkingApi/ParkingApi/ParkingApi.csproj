@@ -217,9 +217,11 @@
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Controllers\VehicleTypesController.cs" />
+    <Compile Include="Domain\Invoice.cs" />
     <Compile Include="Domain\ParkCellResponse.cs" />
     <Compile Include="Domain\PriceRequest.cs" />
     <Compile Include="Domain\RecordRequest.cs" />
+    <Compile Include="Domain\RecordResponse.cs" />
     <Compile Include="Domain\UserRequest.cs" />
     <Compile Include="Floor.cs">
       <DependentUpon>ModelParking.tt</DependentUpon>

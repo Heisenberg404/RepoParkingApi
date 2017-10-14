@@ -26,8 +26,7 @@ namespace ParkingApi.Models
         {
             return db.ParkCells;
         }
-
-       
+           
 
         private bool UserExists(int id)
         {

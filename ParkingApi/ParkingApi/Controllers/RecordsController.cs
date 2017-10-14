@@ -26,14 +26,50 @@ namespace ParkingApi.Controllers
             return recordModel.SelectAll();
         }
 
-       /* [HttpGet]
-        [GET("api/Records/Cell")]
-        [ResponseType(typeof(RecordRequest))]
-        public IHttpActionResult getCellsActive()
+        [ResponseType(typeof(String))]
+        public IHttpActionResult PostRecord(RecordRequest recordRequest)
         {
-            recordModel.SelectAll();
-            return null;
-        }*/
+            Record record = new Record();
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            else
+            {
+                record = recordModel.InsertRecord(recordRequest);
+                return Ok(record);
+
+            }
+
+        }
+
+        [ResponseType(typeof(Invoice))]
+        public IHttpActionResult PutRecord(RecordRequest recordRequest)
+        {
+            Record record = new Record();
+            Invoice invoice = new Invoice();
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            else
+            {
+                invoice = recordModel.QuitRecord(recordRequest);
+                return Json(invoice);                
+            }
+
+        }
+
+        /* [HttpGet]
+         [GET("api/Records/Cell")]
+         [ResponseType(typeof(RecordRequest))]
+         public IHttpActionResult getCellsActive()
+         {
+             recordModel.SelectAll();
+             return null;
+         }*/
         // GET: api/Records/5
         [ResponseType(typeof(Record))]
         public IHttpActionResult GetRecord(int id)
@@ -48,7 +84,7 @@ namespace ParkingApi.Controllers
         }
 
         // PUT: api/Records/5
-        [ResponseType(typeof(void))]
+      /*  [ResponseType(typeof(void))]
         public IHttpActionResult PutRecord(int id, Record record)
         {
             if (!ModelState.IsValid)
@@ -82,8 +118,8 @@ namespace ParkingApi.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/Records
-        [ResponseType(typeof(Record))]
+        /* POST: api/Records
+         [ResponseType(typeof(Record))]
         public IHttpActionResult PostRecord(Record record)
         {
             if (!ModelState.IsValid)
@@ -96,7 +132,8 @@ namespace ParkingApi.Controllers
 
             return CreatedAtRoute("DefaultApi", new { id = record.Id }, record);
         }
-
+        */
+         
         // DELETE: api/Records/5
         [ResponseType(typeof(Record))]
         public IHttpActionResult DeleteRecord(int id)
