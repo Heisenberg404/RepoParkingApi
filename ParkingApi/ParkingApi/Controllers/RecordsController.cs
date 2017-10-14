@@ -21,9 +21,9 @@ namespace ParkingApi.Controllers
         RecordsModel recordModel = new RecordsModel();
 
         // GET: api/Records
-        public IQueryable<Record> GetRecord()
+        public IHttpActionResult GetRecord()
         {
-            return recordModel.SelectAll();
+            return Json(recordModel.SelectAll());
         }
 
         [ResponseType(typeof(String))]
@@ -62,14 +62,6 @@ namespace ParkingApi.Controllers
 
         }
 
-        /* [HttpGet]
-         [GET("api/Records/Cell")]
-         [ResponseType(typeof(RecordRequest))]
-         public IHttpActionResult getCellsActive()
-         {
-             recordModel.SelectAll();
-             return null;
-         }*/
         // GET: api/Records/5
         [ResponseType(typeof(Record))]
         public IHttpActionResult GetRecord(int id)
@@ -82,57 +74,7 @@ namespace ParkingApi.Controllers
 
             return Ok(record);
         }
-
-        // PUT: api/Records/5
-      /*  [ResponseType(typeof(void))]
-        public IHttpActionResult PutRecord(int id, Record record)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            if (id != record.Id)
-            {
-                return BadRequest();
-            }
-
-            db.Entry(record).State = EntityState.Modified;
-
-            try
-            {
-                db.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!RecordExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return StatusCode(HttpStatusCode.NoContent);
-        }
-
-        /* POST: api/Records
-         [ResponseType(typeof(Record))]
-        public IHttpActionResult PostRecord(Record record)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            db.Record.Add(record);
-            db.SaveChanges();
-
-            return CreatedAtRoute("DefaultApi", new { id = record.Id }, record);
-        }
-        */
+        
          
         // DELETE: api/Records/5
         [ResponseType(typeof(Record))]
