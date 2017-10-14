@@ -44,6 +44,12 @@ namespace ParkingApi.Models
 
         }
 
+        public ParkCells getById(int id)
+        {
+            return db.ParkCells.Find(id);
+
+        }
+
        
 
         private bool UserExists(int id)
