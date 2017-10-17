@@ -40,5 +40,41 @@ namespace ParkingApi.Controllers
         {
             return db.Record.Count(e => e.Id == id) > 0;
         }
+
+        [ResponseType(typeof(String))]
+        public IHttpActionResult PostRecord(RecordRequest recordRequest)
+        {
+            Record record = new Record();
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            else
+            {
+                record = recordModel.InsertRecord(recordRequest);
+                return Ok(record);
+
+            }
+
+        }
+
+        [ResponseType(typeof(Invoice))]
+        public IHttpActionResult PutRecord(RecordRequest recordRequest)
+        {
+            Record record = new Record();
+            Invoice invoice = new Invoice();
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            else
+            {
+                invoice = recordModel.QuitRecord(recordRequest);
+                return Json(invoice);
+            }
+
+        }
     }
 }
