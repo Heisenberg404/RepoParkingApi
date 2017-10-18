@@ -45,6 +45,7 @@ namespace ParkingApi.Controllers
         public IHttpActionResult PostRecord(RecordRequest recordRequest)
         {
             Record record = new Record();
+            Invoice invoice = new Invoice();
 
             if (!ModelState.IsValid)
             {
@@ -52,8 +53,8 @@ namespace ParkingApi.Controllers
             }
             else
             {
-                record = recordModel.InsertRecord(recordRequest);
-                return Ok(record);
+                invoice = recordModel.InsertRecord(recordRequest);
+                return Json(invoice);
 
             }
 

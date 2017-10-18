@@ -46,9 +46,10 @@ namespace ParkingApi.Models
             return returnReport;
         }
 
-        public Record InsertRecord(RecordRequest rq)
+        public Invoice InsertRecord(RecordRequest rq)
         {
             Record recordReturn = new Record();
+            Invoice invoice = new Invoice();
 
             try
             {
@@ -61,12 +62,13 @@ namespace ParkingApi.Models
                 db.SaveChanges();
                 UpdateStateParkCells(rq);
                 mensaje = "OK";
+                invoice.mensaje = mensaje;
             }
             catch (DbEntityValidationException e)
             {
                 mensaje = "Error al insertar vehicculo" + e;
             }
-            return recordReturn;
+            return invoice;
         }
 
 

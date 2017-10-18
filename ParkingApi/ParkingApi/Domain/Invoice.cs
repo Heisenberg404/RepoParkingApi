@@ -10,5 +10,6 @@ namespace ParkingApi.Domain
         public decimal ValorPago { get; set; }
         public DateTime HoraSalida { get; set; }
         public DateTime HoraEntrada { get; set; }
+        public String mensaje { get; set; }
     }
 }
