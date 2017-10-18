@@ -7,6 +7,7 @@ namespace ParkingApi.Domain
 {
     public class UserMonthPaymentsResponse
     {
+        public int id { get; set; }
         public String idUser { get; set; }
         public String name { get; set; }
         public String license { get; set; }
