@@ -12,6 +12,6 @@ namespace ParkingApi.Domain
         public String license { get; set; }
         public DateTime startDate { get; set; }
         public DateTime endDate { get; set; }
-        public String parkCell { get; set; }
+        public int parkCell { get; set; }
     }
 }

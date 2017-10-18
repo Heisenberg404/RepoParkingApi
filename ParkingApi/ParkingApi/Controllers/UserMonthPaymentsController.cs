@@ -70,17 +70,16 @@ namespace ParkingApi.Controllers
 
         // POST: api/UserMonthPayments
         [ResponseType(typeof(UserMonthPayment))]
-        public IHttpActionResult PostUserMonthPayment(UserMonthPayment userMonthPayment)
+        public IHttpActionResult PostUserMonthPayment(UserMonthPaymentsRequest userMonthPayment)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.UserMonthPayments.Add(userMonthPayment);
-            db.SaveChanges();
+            
 
-            return CreatedAtRoute("DefaultApi", new { id = userMonthPayment.id }, userMonthPayment);
+            return Ok("Insert OK");
         }
 
         // DELETE: api/UserMonthPayments/5

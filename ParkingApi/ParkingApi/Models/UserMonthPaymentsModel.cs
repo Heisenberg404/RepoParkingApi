@@ -29,6 +29,19 @@ namespace ParkingApi.Models
 
         public UserMonthPaymentsResponse InsertUserMonthPayment(UserMonthPaymentsRequest objUserMonthPaymentsRequest)
         {
+
+            UserMonthPayment userMonthPayment = db.UserMonthPayments.SingleOrDefault(userMonth => userMonth.numberIdentification == objUserMonthPaymentsRequest.idUser);
+             if (userMonthPayment == null)
+            {
+                userMonthPayment.numberIdentification = objUserMonthPaymentsRequest.idUser;
+                userMonthPayment.name = objUserMonthPaymentsRequest.name;
+                userMonthPayment.state = true;
+                userMonthPayment.idParkCells = objUserMonthPaymentsRequest.parkCell;
+                db.UserMonthPayments.Add(userMonthPayment);
+                db.SaveChanges();
+
+            }
+            
             return null;
         }
     }
