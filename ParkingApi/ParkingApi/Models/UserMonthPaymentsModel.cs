@@ -26,5 +26,10 @@ namespace ParkingApi.Models
             }
             return userMonthPaymentsResponse;
         }
+
+        public UserMonthPaymentsResponse InsertUserMonthPayment(UserMonthPaymentsRequest objUserMonthPaymentsRequest)
+        {
+            return null;
+        }
     }
 }

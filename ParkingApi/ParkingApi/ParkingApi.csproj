@@ -224,6 +224,7 @@
     <Compile Include="Domain\RecordRequest.cs" />
     <Compile Include="Domain\RecordResponse.cs" />
     <Compile Include="Domain\Report.cs" />
+    <Compile Include="Domain\UserMonthPaymentsRequest.cs" />
     <Compile Include="Domain\UserMonthPaymentsResponse.cs" />
     <Compile Include="Domain\UserRequest.cs" />
     <Compile Include="Domain\VehicleTypeResponse.cs" />
