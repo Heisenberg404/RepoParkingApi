@@ -108,7 +108,6 @@ namespace ParkingApi.Models
                 int id = idrecordwithplaca(rq);
                 Record record = db.Record.Find(id);
                 Price price = db.Price.Find(rq.idprice);
-                record.timeEntry = record.timeEntry;
                 record.timeOut = DateTime.UtcNow.ToLocalTime();
 
                 decimal valor = 0;

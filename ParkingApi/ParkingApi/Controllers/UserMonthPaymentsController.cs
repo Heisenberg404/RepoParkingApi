@@ -34,38 +34,21 @@ namespace ParkingApi.Controllers
         }
 
         // PUT: api/UserMonthPayments/5
-        [ResponseType(typeof(void))]
-        public IHttpActionResult PutUserMonthPayment(int id, UserMonthPayment userMonthPayment)
+        [ResponseType(typeof(Invoice))]
+        public IHttpActionResult PutUserMonthPayment(UserMonthPaymentsRequest userMonthPaymentrequest)
         {
+            UserMonthPayment userMonthPayment = new UserMonthPayment();
+            Invoice invoice = new Invoice();
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-
-            if (id != userMonthPayment.id)
+            else
             {
-                return BadRequest();
+                invoice = userMonthPaymentsModel.UpdateUserMonthPayment(userMonthPaymentrequest);
+                return Json(invoice);
             }
-
-            db.Entry(userMonthPayment).State = EntityState.Modified;
-
-            try
-            {
-                db.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!UserMonthPaymentExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return StatusCode(HttpStatusCode.NoContent);
         }
 
         // POST: api/UserMonthPayments
@@ -76,9 +59,7 @@ namespace ParkingApi.Controllers
             {
                 return BadRequest(ModelState);
             }
-
-            
-
+               
             return Ok("Insert OK");
         }
 

@@ -13,5 +13,6 @@ namespace ParkingApi.Domain
         public DateTime startDate { get; set; }
         public DateTime endDate { get; set; }
         public int parkCell { get; set; }
+        public int idPrice { get; set; }
     }
 }
