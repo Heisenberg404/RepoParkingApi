@@ -7,10 +7,14 @@ namespace ParkingApi.Domain
 {
     public class UserMonthPaymentsResponse
     {
+        public int id { get; set; }
         public String idUser { get; set; }
         public String name { get; set; }
         public String license { get; set; }
         public DateTime startDate { get; set; }
         public DateTime endDate { get; set; }
+        public Boolean isPermited { get; set; }
+        public int TotalPrice { get; set; }
+        public String mensaje { get; set; }
     }
 }

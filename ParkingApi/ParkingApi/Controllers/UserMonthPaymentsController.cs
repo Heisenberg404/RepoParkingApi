@@ -52,15 +52,14 @@ namespace ParkingApi.Controllers
         }
 
         // POST: api/UserMonthPayments
-        [ResponseType(typeof(UserMonthPayment))]
+        [ResponseType(typeof(UserMonthPaymentsRequest))]
         public IHttpActionResult PostUserMonthPayment(UserMonthPaymentsRequest userMonthPayment)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-               
-            return Ok("Insert OK");
+            return Json(userMonthPaymentsModel.InsertUserMonthPayment(userMonthPayment));
         }
 
         // DELETE: api/UserMonthPayments/5

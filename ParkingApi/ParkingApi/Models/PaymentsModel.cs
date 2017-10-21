@@ -10,7 +10,10 @@ namespace ParkingApi.Models
         private ParkingEntities db = new ParkingEntities();
         public Payment GetByIdUserMonthPayment(int idUserMonthPayment)
         {
-            return db.Payment.SingleOrDefault(payment => payment.idUserMonthPayment == idUserMonthPayment);
+            IQueryable<Payment> payments = db.Payment.Where(payment => payment.idUserMonthPayment == idUserMonthPayment);
+
+            return payments.OrderByDescending(payment => payment.id).FirstOrDefault();
+                
         }
     }
 }
