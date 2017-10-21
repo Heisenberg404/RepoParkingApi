@@ -15,5 +15,6 @@ namespace ParkingApi.Domain
         public DateTime endDate { get; set; }
         public Boolean isPermited { get; set; }
         public int TotalPrice { get; set; }
+        public String mensaje { get; set; }
     }
 }

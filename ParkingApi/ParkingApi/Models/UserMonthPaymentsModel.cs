@@ -79,9 +79,10 @@ namespace ParkingApi.Models
                 Price Objprice = db.Price.SingleOrDefault(price => price.idVehicleType == objUserMonthPaymentsRequest.vehicleType);
                 var tiempo = (((userMonthPaymentsResponse.endDate - userMonthPaymentsResponse.startDate).Days) / 30)*Objprice.valueMonth;
                 userMonthPaymentsResponse.TotalPrice = (int)tiempo;
-
-
-
+            } else
+            {
+                ParkCells parkCell = db.ParkCells.SingleOrDefault(cell => cell.id == objUserMonthPaymentsRequest.parkCell);
+                userMonthPaymentsResponse.mensaje = "User exists in parkCell " + parkCell.numCell;
             }
             
             return userMonthPaymentsResponse;
