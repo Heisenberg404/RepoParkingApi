@@ -15,6 +15,7 @@ namespace ParkingApi.Models
         public UserMonthPaymentsResponse GetById(int id)
         {
             UserMonthPayment userMonthPayment = db.UserMonthPayments.SingleOrDefault(userMonth => userMonth.idParkCells == id);
+
             if (userMonthPayment != null)
             {
                 Payment payment = paymentsModel.GetByIdUserMonthPayment(userMonthPayment.id);
@@ -24,6 +25,16 @@ namespace ParkingApi.Models
                 userMonthPaymentsResponse.startDate = payment.startDate;
                 userMonthPaymentsResponse.endDate = payment.endDate;
                 userMonthPaymentsResponse.id = payment.UserMonthPayment.id;
+
+                var fecha = DateTime.Compare(payment.endDate, DateTime.Now);
+                if (fecha > 0)
+                {
+                    userMonthPaymentsResponse.isPermited = true;
+                }else{
+                    userMonthPaymentsResponse.isPermited = false;
+                }
+
+                var tiempo = ((userMonthPaymentsResponse.startDate - userMonthPaymentsResponse.endDate).Days) / 30;
 
             }
             return userMonthPaymentsResponse;
@@ -63,6 +74,14 @@ namespace ParkingApi.Models
                 userMonthPaymentsResponse.license = objUserMonthPaymentsRequest.license;
                 userMonthPaymentsResponse.startDate = objUserMonthPaymentsRequest.startDate;
                 userMonthPaymentsResponse.endDate = objUserMonthPaymentsRequest.endDate;
+                userMonthPaymentsResponse.isPermited = true;
+
+                Price Objprice = db.Price.SingleOrDefault(price => price.idVehicleType == objUserMonthPaymentsRequest.vehicleType);
+                var tiempo = (((userMonthPaymentsResponse.endDate - userMonthPaymentsResponse.startDate).Days) / 30)*Objprice.valueMonth;
+                userMonthPaymentsResponse.TotalPrice = (int)tiempo;
+
+
+
             }
             
             return userMonthPaymentsResponse;
