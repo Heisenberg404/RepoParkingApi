@@ -37,12 +37,6 @@ namespace ParkingApi
         public virtual DbSet<VehicleType> VehicleType { get; set; }
         public virtual DbSet<UserMonthPayment> UserMonthPayments { get; set; }
     
-        [DbFunction("ParkingEntities", "Reporte")]
-        public virtual IQueryable<Reporte_Result> Reporte()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<Reporte_Result>("[ParkingEntities].[Reporte]()");
-        }
-    
         public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
         {
             var diagramnameParameter = diagramname != null ?
@@ -144,6 +138,12 @@ namespace ParkingApi
         public virtual int sp_upgraddiagrams()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_upgraddiagrams");
+        }
+    
+        [DbFunction("ParkingEntities", "Reporte")]
+        public virtual IQueryable<Reporte_Result1> Reporte()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<Reporte_Result1>("[ParkingEntities].[Reporte]()");
         }
     
         [DbFunction("ParkingEntities", "Reporte1")]

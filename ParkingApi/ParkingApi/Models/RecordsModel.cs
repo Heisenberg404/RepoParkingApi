@@ -26,14 +26,14 @@ namespace ParkingApi.Models
         {
             List<Report> returnReport = new List<Report>();
 
-            IQueryable<Reporte_Result> reporte = db.Reporte();
+            IQueryable<Reporte_Result> reporte = db.Reporte1();
             var pa = reporte.ToList();
             pa.ForEach(x =>
             {
                 Report obj = new Report();
                 obj.id = (int)x.ID;
                 obj.license = x.LINCESE;
-                obj.vehicleType = x.VEHICLE_TIPE;
+                obj.vehicleType = x.VEHICLE_TYPE;
                 obj.timeEntry = (System.DateTime)x.TIMEENTRY;
                 obj.timeOut = (System.DateTime)x.TIMEOUT;
                 obj.minuteInParking = (int)x.MINUTES_IN_PARKING;

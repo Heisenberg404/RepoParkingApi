@@ -11,16 +11,16 @@ namespace ParkingApi
 {
     using System;
     
-    public partial class Reporte_Result
+    public partial class Reporte1_Result
     {
         public Nullable<int> ID { get; set; }
         public string LINCESE { get; set; }
+        public string VEHICLE_TYPE { get; set; }
         public Nullable<System.DateTime> TIMEENTRY { get; set; }
         public Nullable<System.DateTime> TIMEOUT { get; set; }
         public Nullable<int> MINUTES_IN_PARKING { get; set; }
         public Nullable<int> MINUTE_PRICE { get; set; }
         public Nullable<int> TOTAL_PRICE { get; set; }
         public string CELL { get; set; }
-        public string VEHICLE_TYPE { get; set; }
     }
 }
