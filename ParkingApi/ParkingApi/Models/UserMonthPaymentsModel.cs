@@ -155,7 +155,7 @@ namespace ParkingApi.Models
             //Obtenemos la fecha actual
             DateTime currentDate = DateTime.UtcNow.ToLocalTime();
 
-            if (userRequestPayment.startDate.Year < currentDate.Year) {
+            if (userRequestPayment.startDate >= currentDate) {
                 
                 // Crear el nuevo registro
                 payment.paymentDate = currentDate;
@@ -176,14 +176,33 @@ namespace ParkingApi.Models
             DateTime startDate = userRequestPayment.startDate;
             DateTime endDate = userRequestPayment.endDate;
 
+            
             //Calculamos la diferencia entre los meses de las fechas ingresadas
-            int diferenciaMeses = endDate.Month - startDate.Month;            
+            int diferenciaMeses = endDate.Month - startDate.Month;
+            int diferenciaYear = endDate.Year - startDate.Month;
+            int months = 0;
 
-            if (diferenciaMeses > 1)
+            if (diferenciaYear == 0)
             {
+                if (diferenciaMeses >= 1)
+                {
 
-                valuemonth = valuemonth * diferenciaMeses;
+                    valuemonth = valuemonth * diferenciaMeses;
+                }
             }
+            else {
+                for (int i = startDate.Month; i < 12; i++)
+                {
+                    months++;
+                }
+                for (int i =0; i < endDate.Month; i++)
+                {
+                    months++;
+                }
+
+                valuemonth = valuemonth * months;
+            }
+          
 
             return valuemonth;
         }
