@@ -88,6 +88,35 @@ namespace ParkingApi.Models
             return userMonthPaymentsResponse;
         }
 
+        public UserMonthPaymentsResponse QuitUserMonthPayment (UserMonthPaymentsRequest userRequestPayment) {
+
+            UserMonthPaymentsResponse userMonthPaymentsResponse = new UserMonthPaymentsResponse();
+
+            var findUser = db.UserMonthPayments.Where(x => x.numberIdentification == userRequestPayment.idUser).FirstOrDefault();
+
+            if (findUser != null)
+            {
+                findUser.state = false;
+                db.Entry(findUser).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+
+            var findParkCell = db.ParkCells.Find(findUser.idParkCells);
+
+            if (findParkCell != null)
+            {
+
+                findParkCell.state = "DISP";
+                findParkCell.license = null;
+                db.Entry(findParkCell).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+
+            userMonthPaymentsResponse.mensaje = "done";
+            return userMonthPaymentsResponse;
+
+        }
+
         public Invoice UpdateUserMonthPayment (UserMonthPaymentsRequest userRequestPayment)
         {
             //var findUser = db.UserMonthPayments.Find(userRequestPayment.idPrice);

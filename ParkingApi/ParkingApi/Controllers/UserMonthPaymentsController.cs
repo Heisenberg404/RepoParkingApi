@@ -59,7 +59,16 @@ namespace ParkingApi.Controllers
             {
                 return BadRequest(ModelState);
             }
-            return Json(userMonthPaymentsModel.InsertUserMonthPayment(userMonthPayment));
+
+            if (userMonthPayment.operacion)
+            {
+                return Json(userMonthPaymentsModel.InsertUserMonthPayment(userMonthPayment));
+            }
+            else {
+
+                return Json(userMonthPaymentsModel.QuitUserMonthPayment(userMonthPayment));
+            }
+            
         }
 
         // DELETE: api/UserMonthPayments/5

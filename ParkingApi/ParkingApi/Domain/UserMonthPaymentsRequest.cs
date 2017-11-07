@@ -15,5 +15,6 @@ namespace ParkingApi.Domain
         public int parkCell { get; set; }
         public int vehicleType { get; set; }
         public int idPrice { get; set; }
+        public Boolean operacion { get; set; }
     }
 }
