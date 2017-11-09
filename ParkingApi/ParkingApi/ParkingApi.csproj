@@ -269,7 +269,13 @@
     <Compile Include="Record.cs">
       <DependentUpon>ModelParking.tt</DependentUpon>
     </Compile>
+    <Compile Include="Reporte1_Result.cs">
+      <DependentUpon>ModelParking.tt</DependentUpon>
+    </Compile>
     <Compile Include="Reporte_Result.cs">
+      <DependentUpon>ModelParking.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Reporte_Result1.cs">
       <DependentUpon>ModelParking.tt</DependentUpon>
     </Compile>
     <Compile Include="sp_helpdiagramdefinition_Result.cs">
